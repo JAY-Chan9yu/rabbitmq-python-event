@@ -1,6 +1,7 @@
 from typing import Callable
 
 import pika
+from pika.exchange_type import ExchangeType
 
 
 class BasicPikaClient:
@@ -32,14 +33,18 @@ class EventProducer(BasicPikaClient):
     이벤트 생성자
     """
 
-    def declare_queue(self, queue_name):
+    def declare_queue(self, queue_name: str):
         """queue 선언, 존재하면 pass"""
         print(f"Trying to declare queue({queue_name})...")
         self.channel.queue_declare(queue=queue_name)
 
+    def declare_exchange(self, exchange_name: str, exchange_type: ExchangeType):
+        """exchange 선언, 존재하면 pass"""
+        print(f"Trying to declare queue({exchange_name})...")
+        self.channel.exchange_declare(exchange=exchange_name, exchange_type=exchange_type.name)
+
     def send_message(self, exchange: str, routing_key: str, body: bytes):
-        channel = self.connection.channel()
-        channel.basic_publish(
+        self.channel.basic_publish(
             exchange=exchange,
             routing_key=routing_key,
             body=body
