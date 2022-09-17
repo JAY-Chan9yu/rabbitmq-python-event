@@ -2,10 +2,10 @@ from time import sleep
 
 from pika.exchange_type import ExchangeType
 
-from event_broker import EventProducer
+from event_broker import EventPublisher
 
 
-event_producer = EventProducer(
+event_producer = EventPublisher(
     vhost='default',
     rabbitmq_broker_url='127.0.0.1',
     rabbitmq_user='root',
@@ -14,7 +14,7 @@ event_producer = EventProducer(
 )
 
 # Declare a queue
-event_producer.declare_queue("t_msg_1")
+# event_producer.declare_queue("t_msg_1")
 # Declare a exchange
 event_producer.declare_exchange(exchange_name='log', exchange_type=ExchangeType.topic)
 
@@ -27,3 +27,4 @@ try:
 except KeyboardInterrupt:
     print('stop')
     event_producer.close()
+

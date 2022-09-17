@@ -28,10 +28,8 @@ class BasicPikaClient:
         self.connection.close()
 
 
-class EventProducer(BasicPikaClient):
-    """
-    이벤트 생성자
-    """
+class EventPublisher(BasicPikaClient):
+    """이벤트 생성자"""
 
     def declare_queue(self, queue_name: str):
         """queue 선언, 존재하면 pass"""
@@ -53,9 +51,7 @@ class EventProducer(BasicPikaClient):
 
 
 class EventConsumer(BasicPikaClient):
-    """
-    이벤트 소비자
-    """
+    """이벤트 소비자"""
 
     def get_message(self, queue: str):
         """하나의 메세지만 가져와서 처리 """
