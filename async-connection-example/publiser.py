@@ -16,12 +16,12 @@ event_producer = EventPublisher(
 # Declare a queue
 # event_producer.declare_queue("t_msg_1")
 # Declare a exchange
-event_producer.declare_exchange(exchange_name='log', exchange_type=ExchangeType.topic)
+event_producer.declare_exchange(exchange_name='async_log', exchange_type=ExchangeType.topic)
 
 try:
     while True:
         # Send a message to the queue
-        event_producer.send_message(exchange="log", routing_key="log.1", body=b'Hello World!')
+        event_producer.send_message(exchange="async_log", routing_key="async.1", body=b'Hello World!')
         sleep(1)
 
 except KeyboardInterrupt:
